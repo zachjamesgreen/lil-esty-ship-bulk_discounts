@@ -1,3 +1,2 @@
-app.listen(process.env.PORT || 3000, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-});
+web: bin/rails server -p ${PORT:-5000} -e $RAILS_ENV
+release: rails db:migrate

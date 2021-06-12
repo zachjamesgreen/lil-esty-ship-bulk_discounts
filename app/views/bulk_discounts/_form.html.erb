@@ -1,0 +1,14 @@
+<hr>
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+<% end %>
+
+<%= form_with model: discount, method: :post, local: true do |f| %>
+  <h4>Create a Discount</h4>
+  <%= f.label :percentage %>
+  <%= f.number_field :percentage %>
+  <%= f.label :quantity %>
+  <%= f.number_field :quantity %>
+  <%= f.submit %>
+<% end %>
+<hr>

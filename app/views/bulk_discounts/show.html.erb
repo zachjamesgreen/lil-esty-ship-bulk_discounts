@@ -2,3 +2,4 @@
 
 <p>Percentage: <%= @discount.percentage %></p>
 <p>Quantity: <%= @discount.quantity %></p>
+<p><%= link_to 'Edit', edit_merchant_bulk_discount_path(@discount.merchant_id, @discount.id) %></p>

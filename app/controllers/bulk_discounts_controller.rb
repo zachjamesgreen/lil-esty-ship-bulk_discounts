@@ -5,6 +5,10 @@ class BulkDiscountsController < ApplicationController
     @holidays = API.get_next_holidays[0..2]
   end
 
+  def show
+    @discount = BulkDiscount.find params[:id]
+  end
+
   def create
     @discount = BulkDiscount.new(
       percentage: params[:percentage],

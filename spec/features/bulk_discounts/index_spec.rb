@@ -15,6 +15,9 @@ RSpec.describe 'Bulk Discounts Index' do
   it 'shows all discounts for merchant' do
     @merchant.discounts.each do |d|
       expect(page).to have_content(d.id.to_s)
+      expect(page).to have_content("#{d.percentage}%")
+        expect(page).to have_content(d.quantity)
+      expect(page).to have_link(d.id.to_s, href: merchant_bulk_discount_path(d.merchant_id, d.id))
     end
   end
 end

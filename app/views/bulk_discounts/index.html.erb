@@ -1,7 +1,21 @@
 <h1>Bulk Discounts</h1>
 
-<ul>
-  <% @discounts.each do |d| %>
-    <li><%= d.id %></li>
-  <% end %>
-</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Link</th>
+      <th>Discount</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @discounts.each do |d| %>
+      <tr>
+        <td><%= link_to d.id, merchant_bulk_discount_path(d.merchant_id, d.id) %></td>
+        <td><%= d.percentage %>%</td>
+        <td><%= d.quantity %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

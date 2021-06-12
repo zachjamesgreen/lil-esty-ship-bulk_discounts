@@ -5,9 +5,9 @@ RSpec.describe 'Bulk Discounts Index' do
     @merchant = Merchant.create!(name: 'Holla Back')
 
     @discount1 = @merchant.discounts.create!(percentage: 5, quantity: 5)
-    @discount1 = @merchant.discounts.create!(percentage: 10, quantity: 10)
-    @discount1 = @merchant.discounts.create!(percentage: 15, quantity: 15)
-    @discount1 = @merchant.discounts.create!(percentage: 20, quantity: 20)
+    @discount2 = @merchant.discounts.create!(percentage: 10, quantity: 10)
+    @discount3 = @merchant.discounts.create!(percentage: 15, quantity: 15)
+    @discount4 = @merchant.discounts.create!(percentage: 20, quantity: 20)
 
     visit merchant_bulk_discounts_path @merchant
   end
@@ -46,6 +46,15 @@ RSpec.describe 'Bulk Discounts Index' do
     end
     expect(page).to have_current_path(merchant_bulk_discounts_path(@merchant))
     expect(page.find('.notice')).to have_content('Discount Not Saved')
+  end
+
+  it 'can delete a discount' do
+    within "#discount-#{@discount1.id}" do
+      expect(page).to have_link('Delete', "/merchant/#{@discount1.merchant_id}/bulk_discounts/#{@discount1.id}")
+      click_on 'Delete'
+    end
+    expect(page).to have_current_path(merchant_bulk_discounts_path(@merchant))
+    expect(page).to have_no_content(@discount1.id)
   end
 
 end

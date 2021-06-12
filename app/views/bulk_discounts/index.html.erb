@@ -29,6 +29,7 @@
       <th>Link</th>
       <th>Discount</th>
       <th>Quantity</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -37,6 +38,7 @@
         <td><%= link_to d.id, merchant_bulk_discount_path(d.merchant_id, d.id) %></td>
         <td><%= d.percentage %>%</td>
         <td><%= d.quantity %></td>
+        <td><%= link_to 'Delete', "/merchant/#{d.merchant_id}/bulk_discounts/#{d.id}", method: :delete %></td>
       </tr>
     <% end %>
   </tbody>

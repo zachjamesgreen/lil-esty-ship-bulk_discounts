@@ -1,5 +1,27 @@
 <h1>Bulk Discounts</h1>
 
+<h3>Upcoming Holidays</h3>
+<ul>
+  <% @holidays.each do |h| %>
+    <li><%= h['localName'] %> | <%= h['date'] %></li>
+  <% end %>
+</ul>
+
+<hr>
+  <% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+  <% end %>
+
+  <%= form_with model: @discount, method: :post, local: true do |f| %>
+    <h4>Create a Discount</h4>
+    <%= f.label :percentage %>
+    <%= f.number_field :percentage %>
+    <%= f.label :quantity %>
+    <%= f.number_field :quantity %>
+    <%= f.submit %>
+  <% end %>
+<hr>
+
 
 <table>
   <thead>
@@ -11,7 +33,7 @@
   </thead>
   <tbody>
     <% @discounts.each do |d| %>
-      <tr>
+      <tr id="discount-<%= d.id %>">
         <td><%= link_to d.id, merchant_bulk_discount_path(d.merchant_id, d.id) %></td>
         <td><%= d.percentage %>%</td>
         <td><%= d.quantity %></td>

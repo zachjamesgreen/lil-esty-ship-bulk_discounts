@@ -259,6 +259,7 @@ DEPENDENCIES
   rails-assets-tether (>= 1.1.0)!
   rspec-rails
   sass-rails (~> 5.0)
+  sassc
   shoulda-matchers
   simplecov
   spring

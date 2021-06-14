@@ -21,7 +21,8 @@ class Merchant < ApplicationRecord
   end
 
   def ordered_items_to_ship
-    item_ids = InvoiceItem.where("status = 0 OR status = 1").order(:created_at).pluck(:item_id)
+    ids = items.ids
+    item_ids = InvoiceItem.where("status = 0 OR status = 1").where("item_id in (?)", ids).order(:created_at).pluck(:item_id)
     item_ids.map do |id|
       Item.find(id)
     end

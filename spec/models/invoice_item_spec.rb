@@ -29,9 +29,12 @@ RSpec.describe InvoiceItem, type: :model do
   end
 
   it 'only applies the correct discount' do
-    expect(@ii1.discount).to eq 95
-    expect(@ii2.discount).to eq 900
-    expect(@ii3.discount).to eq 425
+    expect(@ii1.discount_price).to eq 95
+    expect(@ii2.discount_price).to eq 900
+    expect(@ii3.discount_price).to eq 425
+    @m.discounts.create!(percentage: 20, quantity: 10)
+    expect(@ii2.discount_price).to eq 800
+    expect(@ii3.discount_price).to eq 400
   end
 
 

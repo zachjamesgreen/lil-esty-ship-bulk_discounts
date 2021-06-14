@@ -17,11 +17,11 @@ class InvoiceItem < ApplicationRecord
 
   def self.discount_revenue
     all.map do |ii|
-      ii.quantity * ii.discount
+      ii.quantity * ii.discount_price
     end.sum
   end
 
-  def discount
+  def discount_price
     price = item.unit_price
     item.merchant.discounts.order(quantity: :desc).each do |d|
       if quantity >= d.quantity
@@ -31,6 +31,17 @@ class InvoiceItem < ApplicationRecord
       end
     end
     price
+  end
+
+  def discount
+    discounts = item.merchant.discounts.order(quantity: :desc)
+    return nil if discounts.size == 0
+    discounts.each do |d|
+      if quantity >= d.quantity
+        return d
+      end
+    end
+    nil
   end
 end
 # m = Merchant.find 15

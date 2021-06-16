@@ -57,4 +57,11 @@ RSpec.describe 'Bulk Discounts Index' do
     expect(page).to have_no_content(@discount1.id)
   end
 
+  it 'shows the next three holidays' do
+    expect(page).to have_content('Upcoming Holidays')
+    expect(page).to have_content('Independence Day | 2021-07-05')
+    expect(page).to have_content('Labor Day | 2021-09-06')
+    expect(page).to have_content('Columbus Day | 2021-10-11')
+  end
+
 end

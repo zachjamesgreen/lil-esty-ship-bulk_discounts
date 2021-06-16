@@ -28,6 +28,10 @@ RSpec.describe 'merchant dashboard' do
     @ii_2 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_2.id, quantity: 1, unit_price: 8, status: 0)
     @ii_3 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 2)
     @ii_4 = InvoiceItem.create!(invoice_id: @invoice_3.id, item_id: @item_4.id, quantity: 1, unit_price: 5, status: 1)
+    @ii_5 = InvoiceItem.create!(invoice_id: @invoice_4.id, item_id: @item_1.id, quantity: 1, unit_price: 5, status: 1)
+    @ii_6 = InvoiceItem.create!(invoice_id: @invoice_5.id, item_id: @item_2.id, quantity: 1, unit_price: 5, status: 1)
+    @ii_7 = InvoiceItem.create!(invoice_id: @invoice_6.id, item_id: @item_3.id, quantity: 1, unit_price: 5, status: 2)
+    @ii_8 = InvoiceItem.create!(invoice_id: @invoice_7.id, item_id: @item_4.id, quantity: 1, unit_price: 5, status: 1)
 
     @transaction1 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_1.id)
     @transaction2 = Transaction.create!(credit_card_number: 230948, result: 1, invoice_id: @invoice_3.id)
@@ -60,11 +64,12 @@ RSpec.describe 'merchant dashboard' do
     expect(current_path).to eq("/merchant/#{@merchant1.id}/invoices")
   end
 
-  xit 'shows the names of the top 5 customers with successful transactions' do
+  it 'shows the names of the top 5 customers with successful transactions' do
+    # require "pry"; binding.pry
     within("#customer-#{@customer_1.id}") do
       expect(page).to have_content(@customer_1.first_name)
       expect(page).to have_content(@customer_1.last_name)
-      expect(page).to have_content(2)
+      expect(page).to have_content(3)
     end
     within("#customer-#{@customer_2.id}") do
       expect(page).to have_content(@customer_2.first_name)
@@ -104,9 +109,9 @@ RSpec.describe 'merchant dashboard' do
   end
 
   it "each invoice id is a link to my merchant's invoice show page " do
-    expect(page).to have_link(@item_1.invoice_ids)
-    expect(page).to have_link(@item_2.invoice_ids)
-    expect(page).to_not have_link(@item_3.invoice_ids)
+    expect(page).to have_link("#{@item_1.invoice_ids}")
+    expect(page).to have_link("#{@item_2.invoice_ids}")
+    expect(page).to_not have_link("#{@item_3.invoice_ids}")
 
     click_link("#{@item_1.invoice_ids}", match: :first)
     expect(current_path).to eq("/merchant/#{@merchant1.id}/invoices/#{@invoice_1.id}")

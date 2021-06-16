@@ -69,15 +69,15 @@ RSpec.describe 'invoices show' do
     expect(page).to_not have_content(@customer_2.last_name)
   end
 
-  xit "shows the item information" do
-    visit merchant_invoice_path(@merchant1, @invoice_1)
-
-    expect(page).to have_content(@item_1.name)
-    expect(page).to have_content(@ii_1.quantity)
-    expect(page).to have_content(@ii_1.unit_price)
-    expect(page).to_not have_content(@ii_4.unit_price)
-
-  end
+  # xit "shows the item information" do
+  #   visit merchant_invoice_path(@merchant1, @invoice_1)
+  #
+  #   expect(page).to have_content(@item_1.name)
+  #   expect(page).to have_content(@ii_1.quantity)
+  #   expect(page).to have_content(@ii_1.unit_price)
+  #   expect(page).to_not have_content(@ii_4.unit_price)
+  #
+  # end
 
   it "shows the total revenue for this invoice" do
     visit merchant_invoice_path(@merchant1, @invoice_1)
